@@ -10,9 +10,19 @@ class Category(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(10240))
+    post = db.Column(db.String(64))
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     def __repr__(self):
+        return '<Post %r>' % (self.post)
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(10240))
+
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def __repr__(self):
         return '<Comment %r>' % (self.comment)
+
