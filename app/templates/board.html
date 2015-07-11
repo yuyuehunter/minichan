@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h2>{{category['name']}}</h2>
+
+    {% for post in posts %}
+        <h4>{{post.title}}</h4>
+    {% endfor %}
+{% endblock %}

@@ -10,7 +10,8 @@ class Category(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    post = db.Column(db.String(64))
+    title = db.Column(db.String(64))
+    text = db.Column(db.String(10240))
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
@@ -25,4 +26,3 @@ class Comment(db.Model):
 
     def __repr__(self):
         return '<Comment %r>' % (self.comment)
-

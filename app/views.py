@@ -10,7 +10,16 @@ def query_all_categories():
 def query_category_by_name(url):
     cur = models.Category.query.filter_by(url_name=url).first()
 
-    return cur.name
+    category = {'id':cur.id, 'name':cur.name, 'url':cur.url_name}
+
+    return category
+
+def query_post(cat_id):
+    cur = models.Post.query.filter_by(category_id=cat_id)
+
+    posts = [dict(id=post.id, title=post.title, text=post.text) for post in cur]
+
+    return posts
 
 @app.route('/')
 def index():
@@ -18,4 +27,6 @@ def index():
 
 @app.route('/<cat>')
 def show_category(cat):
-    return query_category_by_name(cat)
+    category = query_category_by_name(cat)
+    posts = query_post(category['id'])
+    return render_template('board.html', category=category, posts=posts)
