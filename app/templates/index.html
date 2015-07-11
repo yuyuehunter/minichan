@@ -1,0 +1,11 @@
+<title>minichan</title>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+    {% for category in categories %}
+        <a href={{ "/" + category.url}}>{{category.name}}</a>
+    {% endfor %}
+
+{% endblock %}
