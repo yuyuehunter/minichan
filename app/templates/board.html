@@ -4,6 +4,14 @@
     <h2>{{category['name']}}</h2>
 
     {% for post in posts %}
-        <h4>{{post.title}}</h4>
+        <h4>{{post.title}} >> No {{post.id}}</h4>
+        {% for a in allcomm %}
+            {% if allcomm.index(a) == post.id-1 %}
+                {% for j in allcomm[allcomm.index(a)] %}
+                    <p>{{j.comment}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
     {% endfor %}
+    
 {% endblock %}

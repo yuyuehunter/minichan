@@ -21,6 +21,13 @@ def query_post(cat_id):
 
     return posts
 
+def query_comment(p_id):
+    cur = models.Comment.query.filter_by(post_id=p_id)
+
+    comments = [dict(id=com.id, comment=com.comment, pid=com.post_id) for com in cur]
+
+    return comments
+
 @app.route('/')
 def index():
     return render_template('index.html', categories=query_all_categories())
@@ -29,4 +36,11 @@ def index():
 def show_category(cat):
     category = query_category_by_name(cat)
     posts = query_post(category['id'])
-    return render_template('board.html', category=category, posts=posts)
+
+    allcomm = []
+
+    for p in posts:
+        comments = query_comment(p['id'])
+        allcomm.append(comments)
+
+    return render_template('board.html', category=category, posts=posts, comments=comments, allcomm=allcomm)
