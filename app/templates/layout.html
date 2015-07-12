@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='style.css') }}>
 
-<div>
-    <h1>minichan</h1>
-</div>
 
 {% block body %}{% endblock %}
 
-<div>
-    <h1>footer</h1>
+<div id="footer">
+    <a href="/" id="btn">Home</a>
+    <a href="https://github.com/dapine/minichan" id="btn">Source</a>
+    <p class="fore-color">2015 minichan</p>
 </div>
