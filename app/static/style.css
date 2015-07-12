@@ -20,7 +20,16 @@ div {
     background-color: #c5c8c6;
 }
 
-#pretty-link {
+#comment-div {
+    display: inline-block;
+    padding: 1pt;
+}
+
+#board-title {
+    text-align: center;
+}
+
+.pretty-link {
     text-decoration: none;
 }
 
@@ -65,4 +74,3 @@ body {
 a:visited {
     color: #5f819d;
 }
-

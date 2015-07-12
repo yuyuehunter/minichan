@@ -1,17 +1,42 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h2>{{category['name']}}</h2>
+
+    <div id="board-list-nav">
+        <span>[</span>
+            <a href="/all" class="pretty-link">a</a> /
+            <a href="#" class="pretty-link">b</a> /
+            <a href="#" class="pretty-link">c</a> /
+            <a href="#" class="pretty-link">d</a> /
+            <a href="#" class="pretty-link">hue</a> /
+        <span>]</span>
+    </div>
+
+    <div id="board-title">
+        <h2>{{"/" + category['url'] + "/ - " + category['name']}}</h2>
+    </div>
+
+    <hr></hr>
 
     {% for post in posts %}
-        <h4>{{post.title}} >> No {{post.id}}</h4>
-        {% for a in allcomm %}
-            {% if allcomm.index(a) == post.id-1 %}
-                {% for j in allcomm[allcomm.index(a)] %}
-                    <p>{{j.comment}}</p>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
+        <div id="thread">
+            <h4>{{post.title}} >> No {{post.id}}</h4>
+            <p>{{post.text}}</p>
+            {% for a in allcomm %}
+                {% if allcomm.index(a) == post.id-1 %}
+                    {% for j in allcomm[allcomm.index(a)] %}
+                        <div id="comment-div" class="dark-bg">
+                            <p>{{j.comment}}</p>
+                        </div>
+
+                        <br>
+                        <span></span>
+                        <br>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <hr></hr>
+        </div>
     {% endfor %}
     
 {% endblock %}
