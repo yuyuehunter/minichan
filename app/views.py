@@ -32,7 +32,7 @@ def query_comment(p_id):
 def index():
     return render_template('index.html', categories=query_all_categories())
 
-@app.route('/<cat>')
+@app.route('/<cat>/')
 def show_category(cat):
     category = query_category_by_name(cat)
     posts = query_post(category['id'])
@@ -40,7 +40,6 @@ def show_category(cat):
     allcomm = []
 
     for p in posts:
-        comments = query_comment(p['id'])
-        allcomm.append(comments)
+        allcomm.append(query_comment(p['id']))
 
-    return render_template('board.html', category=category, posts=posts, comments=comments, allcomm=allcomm)
+    return render_template('board.html', category=category, posts=posts, allcomm=allcomm)

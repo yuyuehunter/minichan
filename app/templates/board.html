@@ -10,6 +10,7 @@
             <a href="#" class="pretty-link">d</a> /
             <a href="#" class="pretty-link">hue</a> /
         <span>]</span>
+        <span>[<a href="/">Home</a>]</span>
     </div>
 
     <div id="board-title">
@@ -17,6 +18,10 @@
     </div>
 
     <hr></hr>
+
+    {% if (not posts) %}
+        <h1>It looks like empty...Post something</h1>
+    {% endif %}
 
     {% for post in posts %}
         <div id="thread">
