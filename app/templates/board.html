@@ -19,6 +19,40 @@
 
     <hr></hr>
 
+    <h1 id="new-trigger">[<a href="#" onclick="show_form();">Start a New Thread</a>]</h1>
+
+    <div id="new-thread">
+        <form>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" placeholder="Anonymous"></td>
+                </tr>
+                <tr>
+                    <td>Subject</td>
+                    <td><input type="text"><input type="submit" value="Post"></td>
+                </tr>
+                <tr>
+                    <td>Comment</td>
+                    <td><textarea rows="4" cols="30" type="text"></textarea></td>
+                </tr>
+                <tr>
+                    <td>File</td>
+                    <td><input type="file"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        function show_form() {
+            document.getElementById("new-trigger").style.display = "none";
+            document.getElementById("new-thread").style.display = "table";
+        }
+    </script>
+
+    <hr></hr>
+
     {% if (not posts) %}
         <h1>It looks like empty...Post something</h1>
     {% endif %}

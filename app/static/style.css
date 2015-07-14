@@ -3,6 +3,16 @@ div {
     padding: 0px;
 }
 
+#new-trigger {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#new-thread {
+    margin: 0 auto;
+    display: none;
+}
+
 #footer {
     width: 70%;
     text-align: center;
