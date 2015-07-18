@@ -22,28 +22,28 @@
     <h1 id="new-trigger">[<a href="#" onclick="show_form();">Start a New Thread</a>]</h1>
 
     <div id="new-thread">
-        <form>
+        <form method="post" action="">
             <table>
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" placeholder="Anonymous"></td>
+                    <td><input type="text" placeholder="Anonymous" name="name"></td>
                 </tr>
                 <tr>
                     <td>Subject</td>
-                    <td><input type="text"><input type="submit" value="Post"></td>
+                    <td><input type="text" name="subject"><input type="submit" value="Post"></td>
                 </tr>
                 <tr>
                     <td>Comment</td>
-                    <td><textarea rows="4" cols="30" type="text"></textarea></td>
+                    <td><textarea rows="4" cols="30" type="text" name="comment"></textarea></td>
                 </tr>
                 <tr>
                     <td>File</td>
-                    <td><input type="file"></td>
+                    <td><input type="file" name="file"></td>
                 </tr>
             </table>
         </form>
     </div>
-
+    
     <script>
         function show_form() {
             document.getElementById("new-trigger").style.display = "none";

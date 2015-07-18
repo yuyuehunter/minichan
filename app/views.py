@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from app import app
 from app import db, models
 
@@ -32,7 +32,7 @@ def query_comment(p_id):
 def index():
     return render_template('index.html', categories=query_all_categories())
 
-@app.route('/<cat>/')
+@app.route('/<cat>/', methods=['GET', 'POST'])
 def show_category(cat):
     category = query_category_by_name(cat)
     posts = query_post(category['id'])
@@ -42,4 +42,23 @@ def show_category(cat):
     for p in posts:
         allcomm.append(query_comment(p['id']))
 
-    return render_template('board.html', category=category, posts=posts, allcomm=allcomm)
+    thread_data = {
+        'name': '',
+        'subject': '',
+        'comment': ''
+    }
+
+    if request.method == 'POST':
+        thread_data['name']= request.form['name']
+        thread_data['subject']= request.form['subject']
+        thread_data['comment']= request.form['comment']
+
+        if thread_data['name'] == '':
+            thread_data['name'] = 'Anonymous'
+
+    if thread_data['subject'] != '' and thread_data['comment'] != '':
+        thread = models.Post(title=thread_data['subject'], text=thread_data['comment'], category_id=category['id'])
+        db.session.add(thread)
+        db.session.commit()
+    
+    return render_template('board.html', category=category, posts=posts, allcomm=allcomm, cat=cat)
