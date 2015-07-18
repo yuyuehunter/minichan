@@ -1,6 +1,7 @@
 from flask import render_template, request
 from app import app
 from app import db, models
+import datetime
 
 def query_all_categories():
     cur = models.Category.query.all()
@@ -17,7 +18,7 @@ def query_category_by_name(url):
 def query_post(cat_id):
     cur = models.Post.query.filter_by(category_id=cat_id)
 
-    posts = [dict(id=post.id, title=post.title, author=post.author, text=post.text) for post in cur]
+    posts = [dict(id=post.id, title=post.title, author=post.author, text=post.text, time=post.time) for post in cur]
 
     return posts
 
@@ -27,6 +28,14 @@ def query_comment(p_id):
     comments = [dict(id=com.id, comment=com.comment, pid=com.post_id) for com in cur]
 
     return comments
+
+def format_time(time):
+    weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    cur_day = time.weekday()
+
+    time_str = str(time.month) + '/' + str(time.day) + '/' + str(time.year) + '(' + weekdays[cur_day] + ')' + str(time.hour) + ':' + str(time.minute) + ':' + str(time.second)
+
+    return time_str
 
 @app.route('/')
 def index():
@@ -52,12 +61,13 @@ def show_category(cat):
         thread_data['name'] = request.form['name']
         thread_data['subject'] = request.form['subject']
         thread_data['comment'] = request.form['comment']
+        post_time = datetime.datetime.utcnow()
 
         if thread_data['name'] == '':
             thread_data['name'] = 'Anonymous'
 
-    if thread_data['subject'] != '' and thread_data['comment'] != '':
-        thread = models.Post(author=thread_data['name'], title=thread_data['subject'], text=thread_data['comment'], category_id=category['id'])
+    if thread_data['comment'] != '':
+        thread = models.Post(author=thread_data['name'], title=thread_data['subject'], text=thread_data['comment'], time=post_time, category_id=category['id'])
         db.session.add(thread)
         db.session.commit()
     

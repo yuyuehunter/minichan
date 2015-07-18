@@ -13,6 +13,7 @@ class Post(db.Model):
     author = db.Column(db.String(32))
     title = db.Column(db.String(64))
     text = db.Column(db.String(10240))
+    time = db.Column(db.DateTime)
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
@@ -21,7 +22,9 @@ class Post(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(32))
     comment = db.Column(db.String(10240))
+    time = db.Column(db.DateTime)
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 

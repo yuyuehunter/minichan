@@ -39,6 +39,14 @@ div {
     text-align: center;
 }
 
+.post-title {
+    color: navy;
+}
+
+.post-author {
+    color: seagreen;
+}
+
 .pretty-link {
     text-decoration: none;
 }

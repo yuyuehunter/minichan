@@ -59,7 +59,7 @@
 
     {% for post in posts %}
         <div id="thread">
-            <h4>{{post.title}} {{post.author}} >> No {{post.id}}</h4>
+            <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
             <p>{{post.text}}</p>
             {% for a in allcomm %}
                 {% if allcomm.index(a) == post.id-1 %}
