@@ -10,6 +10,7 @@ class Category(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(32))
     title = db.Column(db.String(64))
     text = db.Column(db.String(10240))
 

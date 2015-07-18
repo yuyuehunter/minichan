@@ -17,7 +17,7 @@ def query_category_by_name(url):
 def query_post(cat_id):
     cur = models.Post.query.filter_by(category_id=cat_id)
 
-    posts = [dict(id=post.id, title=post.title, text=post.text) for post in cur]
+    posts = [dict(id=post.id, title=post.title, author=post.author, text=post.text) for post in cur]
 
     return posts
 
@@ -49,15 +49,15 @@ def show_category(cat):
     }
 
     if request.method == 'POST':
-        thread_data['name']= request.form['name']
-        thread_data['subject']= request.form['subject']
-        thread_data['comment']= request.form['comment']
+        thread_data['name'] = request.form['name']
+        thread_data['subject'] = request.form['subject']
+        thread_data['comment'] = request.form['comment']
 
         if thread_data['name'] == '':
             thread_data['name'] = 'Anonymous'
 
     if thread_data['subject'] != '' and thread_data['comment'] != '':
-        thread = models.Post(title=thread_data['subject'], text=thread_data['comment'], category_id=category['id'])
+        thread = models.Post(author=thread_data['name'], title=thread_data['subject'], text=thread_data['comment'], category_id=category['id'])
         db.session.add(thread)
         db.session.commit()
     
