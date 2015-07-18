@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, redirect
 from app import app
 from app import db, models
 import datetime
@@ -70,5 +70,6 @@ def show_category(cat):
         thread = models.Post(author=thread_data['name'], title=thread_data['subject'], text=thread_data['comment'], time=post_time, category_id=category['id'])
         db.session.add(thread)
         db.session.commit()
+        return redirect(cat, code=302)
     
     return render_template('board.html', category=category, posts=posts, allcomm=allcomm, cat=cat)
