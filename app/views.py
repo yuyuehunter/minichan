@@ -11,9 +11,12 @@ def query_all_categories():
 def query_category_by_name(url):
     cur = models.Category.query.filter_by(url_name=url).first()
 
-    category = {'id':cur.id, 'name':cur.name, 'url':cur.url_name}
-
-    return category
+    if cur != None:
+        category = {'id':cur.id, 'name':cur.name, 'url':cur.url_name}
+        return category
+    else:
+        category = {'id':'', 'name':'', 'url':''}
+        return category
 
 def query_post(cat_id):
     cur = models.Post.query.filter_by(category_id=cat_id)
@@ -45,6 +48,9 @@ def index():
 def show_category(cat):
     category = query_category_by_name(cat)
     posts = query_post(category['id'])
+
+    if category['id'] == '' or category['name'] == '' or category['url'] == '':
+        return render_template('404.html')
 
     allcomm = []
 
