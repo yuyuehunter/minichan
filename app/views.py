@@ -28,7 +28,7 @@ def query_post(cat_id):
 def query_comment(p_id):
     cur = models.Comment.query.filter_by(post_id=p_id)
 
-    comments = [dict(id=com.id, comment=com.comment, pid=com.post_id) for com in cur]
+    comments = [dict(id=com.id, author=com.author, comment=com.comment, time=com.time, pid=com.post_id) for com in cur]
 
     return comments
 
@@ -79,3 +79,29 @@ def show_category(cat):
         return redirect(cat, code=302)
     
     return render_template('board.html', category=category, posts=posts, allcomm=allcomm, cat=cat)
+
+@app.route('/<cat>/thread/<thread_id>', methods=['GET', 'POST'])
+def show_thread(cat, thread_id):
+    post = models.Post.query.get(thread_id)
+    allcomm = query_comment(post.id)
+
+    comment_data = {
+        'name': '',
+        'comment': ''
+    }
+
+    if request.method == 'POST':
+        comment_data['name'] = request.form['name']
+        comment_data['comment'] = request.form['comment']
+        comment_time = datetime.datetime.utcnow()
+
+        if comment_data['name'] == '':
+            comment_data['name'] = 'Anonymous'
+
+    if comment_data['comment'] != '':
+        comment = models.Comment(author=comment_data['name'], comment=comment_data['comment'], time=comment_time, post_id=thread_id)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(cat, code=302)
+    
+    return render_template('thread.html', post=post, allcomm=allcomm)

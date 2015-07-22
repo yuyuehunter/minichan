@@ -19,7 +19,7 @@
 
     <hr></hr>
 
-    <h1 id="new-trigger">[<a href="#" onclick="show_form();">Start a New Thread</a>]</h1>
+    <h1 id="new-trigger">[<a href="#" onclick="show_form('new-thread'); hide_elem('new-trigger');">Start a New Thread</a>]</h1>
 
     <div id="new-thread">
         <form method="post" action="">
@@ -45,9 +45,12 @@
     </div>
     
     <script>
-        function show_form() {
-            document.getElementById("new-trigger").style.display = "none";
-            document.getElementById("new-thread").style.display = "table";
+        function show_form(elem) {
+            document.getElementById(elem).style.display = "table";
+        }
+
+        function hide_elem(elem) {
+            document.getElementById(elem).style.display = "none";
         }
     </script>
 
@@ -59,12 +62,13 @@
 
     {% for post in posts %}
         <div id="thread">
-            <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
+            <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}} [<a href="/{{category['url']}}/thread/{{post.id}}">Reply</a>]</h4>
             <p>{{post.text}}</p>
             {% for a in allcomm %}
                 {% if allcomm.index(a) == post.id-1 %}
                     {% for j in allcomm[allcomm.index(a)] %}
                         <div id="comment-div" class="dark-bg">
+                            <h4><span class="post-author">{{j.author}}</span> {{format_time(j.time)}} No.{{j.id}}</h4>
                             <p>{{j.comment}}</p>
                         </div>
 

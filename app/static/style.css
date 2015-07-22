@@ -13,6 +13,11 @@ div {
     display: none;
 }
 
+#new-comment{
+    margin: 0 auto;
+    display: table;
+}
+
 #footer {
     width: 70%;
     text-align: center;

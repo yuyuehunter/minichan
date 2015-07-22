@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div id="new-comment">
+        <form method="post" action="">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" placeholder="Anonymous" name="name"></td>
+                </tr>
+                <tr>
+                    <td>Comment</td>
+                    <td><textarea rows="4" cols="30" type="text" name="comment"></textarea></td>
+                </tr>
+                <tr>
+                    <td>File</td>
+                    <td><input type="file" name="file"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Post"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <hr></hr>
+
+    <div id="thread">
+        <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
+        <p>{{post.text}}</p>
+        {% for a in allcomm %}
+            <div id="comment-div" class="dark-bg">
+                <h4><span class="post-author">{{a.author}}</span> {{format_time(a.time)}} No.{{a.id}}</h4>
+                <p>{{a.comment}}</p>
+            </div>
+
+            <br>
+            <span></span>
+            <br>
+        {% endfor %}
+        <hr></hr>
+    </div>
+{% endblock %}
