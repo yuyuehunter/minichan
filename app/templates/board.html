@@ -64,19 +64,18 @@
         <div id="thread">
             <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}} [<a href="/{{category['url']}}/thread/{{post.id}}">Reply</a>]</h4>
             <p>{{post.text}}</p>
-            {% for a in allcomm %}
-                {% if allcomm.index(a) == post.id-1 %}
-                    {% for j in allcomm[allcomm.index(a)] %}
-                        <div id="comment-div" class="dark-bg">
-                            <h4><span class="post-author">{{j.author}}</span> {{format_time(j.time)}} No.{{j.id}}</h4>
-                            <p>{{j.comment}}</p>
-                        </div>
 
-                        <br>
-                        <span></span>
-                        <br>
-                    {% endfor %}
-                {% endif %}
+            {% set comment = query_comment(post.id) %}
+
+            {% for c in comment %}
+                <div id="comment-div" class="dark-bg">
+                    <h4><span class="post-author">{{c.author}}</span> {{format_time(c.time)}} No.{{c.id}}</h4>
+                    <p>{{c.comment}}</p>
+                </div>
+
+                <br>
+                <span></span>
+                <br>
             {% endfor %}
             <hr></hr>
         </div>
