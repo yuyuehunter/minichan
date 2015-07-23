@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
+{% from 'macros.html' import nav_board_list %}
 
 {% block body %}
+
+    {{nav_board_list()}}
+
     <div id="new-comment">
         <form method="post" action="">
             <table>

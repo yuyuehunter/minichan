@@ -1,18 +1,10 @@
 {% extends "layout.html" %}
+{% from 'macros.html' import nav_board_list %}
 
 {% block body %}
 
-    <div id="board-list-nav">
-        <span>[</span>
-            <a href="/all" class="pretty-link">a</a> /
-            <a href="#" class="pretty-link">b</a> /
-            <a href="#" class="pretty-link">c</a> /
-            <a href="#" class="pretty-link">d</a> /
-            <a href="#" class="pretty-link">hue</a> /
-        <span>]</span>
-        <span>[<a href="/">Home</a>]</span>
-    </div>
-
+    {{nav_board_list()}}
+    
     <div id="board-title">
         <h2>{{"/" + category['url'] + "/ - " + category['name']}}</h2>
     </div>
