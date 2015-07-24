@@ -11,12 +11,12 @@
             </div>
             <div class="content">
                 {% for category in categories %}
-                    <a class="pretty-link" href={{ "/" + category.url}}>{{category.name}}</a>
+                    <a class="pretty-link" href={{ "/" + category.url}}>{{category.name}}</a><br>
                 {% endfor %}
             </div>
         </div>
 
-        <img src="/static/img/minichan_logo.png">
+        <img src="/static/img/minichan_logo.png" class="center">
     </div>
         
 {% endblock %}
