@@ -1,11 +1,10 @@
 {% macro nav_board_list() %}
+    {% set categories = query_all_categories() %}
     <div id="board-list-nav">
         <span>[</span>
-            <a href="/all" class="pretty-link">a</a> /
-            <a href="#" class="pretty-link">b</a> /
-            <a href="#" class="pretty-link">c</a> /
-            <a href="#" class="pretty-link">d</a> /
-            <a href="#" class="pretty-link">hue</a>
+            {% for category in categories %}
+            <a href="/{{category.url}}" class="pretty-link">{{category.url}}</a> /
+            {% endfor %}
         <span>]</span>
         <span>[<a href="/">Home</a>]</span>
     </div>
