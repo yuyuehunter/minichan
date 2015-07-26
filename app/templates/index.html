@@ -10,9 +10,25 @@
                 <h2>Boards</h2>
             </div>
             <div class="content">
-                {% for category in categories %}
-                    <a class="pretty-link" href={{ "/" + category.url}}>{{category.name}}</a><br>
-                {% endfor %}
+                <div id="board-table-div">
+                    <table id="board-table">
+                        <tr>
+                            <th id="board-table-cell">Board</th>
+                            <th id="board-table-cell">Title</th>
+                        </tr>
+
+                        {% for category in categories %}
+                        <tr>
+                            <td id="board-table-cell">
+                                <a class="pretty-link" href={{ "/" + category.url}}>{{category.url}}</a><br>
+                            </td>
+                            <td id="board-table-cell">
+                                <p>{{category.name}}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+            </div>
             </div>
         </div>
 

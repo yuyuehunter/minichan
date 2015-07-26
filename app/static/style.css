@@ -3,6 +3,23 @@ div {
     padding: 0px;
 }
 
+#board-table-div {
+    width: 100%;
+    display: table;
+    margin: auto;
+}
+
+#board-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#board-table-cell {
+    width: 50%;
+    border: 1px solid white;
+    background-color: aliceblue;
+}
+
 #new-trigger {
     margin: 0 auto;
     text-align: center;
@@ -99,6 +116,6 @@ body {
     background-color: #e6f6ff;
 }
 
-a:visited {
+a {
     color: #5f819d;
 }
