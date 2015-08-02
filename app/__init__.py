@@ -8,5 +8,5 @@ db = SQLAlchemy(app)
 from app import views, models
 
 app.jinja_env.globals.update(format_time=views.format_time)
-app.jinja_env.globals.update(query_comment=views.query_comment)
-app.jinja_env.globals.update(query_all_categories=views.query_all_categories)
+app.jinja_env.globals.update(query_comment=queries.query_comment)
+app.jinja_env.globals.update(query_all_categories=queries.query_all_categories)

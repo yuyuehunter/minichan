@@ -1,36 +1,8 @@
 from flask import render_template, request, redirect
 from app import app
 from app import db, models
+from app import queries
 import datetime
-
-def query_all_categories():
-    cur = models.Category.query.all()
-    categories = [dict(name=cat.name, url=cat.url_name) for cat in cur]
-    return categories
-
-def query_category_by_name(url):
-    cur = models.Category.query.filter_by(url_name=url).first()
-
-    if cur != None:
-        category = {'id':cur.id, 'name':cur.name, 'url':cur.url_name}
-        return category
-    else:
-        category = {'id':'', 'name':'', 'url':''}
-        return category
-
-def query_post(cat_id):
-    cur = models.Post.query.filter_by(category_id=cat_id)
-
-    posts = [dict(id=post.id, title=post.title, author=post.author, text=post.text, time=post.time) for post in cur]
-
-    return posts
-
-def query_comment(p_id):
-    cur = models.Comment.query.filter_by(post_id=p_id)
-
-    comments = [dict(id=com.id, author=com.author, comment=com.comment, time=com.time, pid=com.post_id) for com in cur]
-
-    return comments
 
 def format_time(time):
     weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -42,12 +14,12 @@ def format_time(time):
 
 @app.route('/')
 def index():
-    return render_template('index.html', categories=query_all_categories())
+    return render_template('index.html', categories=queries.query_all_categories())
 
 @app.route('/<cat>/', methods=['GET', 'POST'])
 def show_category(cat):
-    category = query_category_by_name(cat)
-    posts = query_post(category['id'])
+    category = queries.query_category_by_name(cat)
+    posts = queries.query_post(category['id'])
 
     if category['id'] == '' or category['name'] == '' or category['url'] == '':
         return render_template('404.html')
@@ -55,7 +27,7 @@ def show_category(cat):
     allcomm = []
 
     for p in posts:
-        allcomm.append(query_comment(p['id']))
+        allcomm.append(queries.query_comment(p['id']))
 
     thread_data = {
         'name': '',
@@ -83,7 +55,7 @@ def show_category(cat):
 @app.route('/<cat>/thread/<thread_id>', methods=['GET', 'POST'])
 def show_thread(cat, thread_id):
     post = models.Post.query.get(thread_id)
-    allcomm = query_comment(post.id)
+    allcomm = queries.query_comment(post.id)
 
     comment_data = {
         'name': '',
