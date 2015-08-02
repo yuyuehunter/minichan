@@ -5,43 +5,51 @@
 
     {{nav_board_list()}}
 
-    <div id="new-comment">
+    <br>
+    <div id="new-comment" style="display: table" class="container-fluid">
         <form method="post" action="">
-            <table id="clean-table">
+            <table>
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" placeholder="Anonymous" name="name"></td>
+                    <td><input type="text" placeholder="Anonymous" name="name" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>Comment</td>
-                    <td><textarea rows="4" cols="30" type="text" name="comment"></textarea></td>
+                    <td><textarea rows="4" cols="30" type="text" name="comment" class="form-control"></textarea></td>
                 </tr>
                 <tr>
                     <td>File</td>
                     <td><input type="file" name="file"></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Post"></td>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Post" class="btn btn-success"></td>
                 </tr>
             </table>
         </form>
     </div>
 
-    <hr></hr>
+    <hr>
 
-    <div id="thread">
-        <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
+    <div class="container-fluid">
+        <h4><span class="label label-success">{{post.title}}</span> <span class="label label-info">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
         <p>{{post.text}}</p>
         {% for a in allcomm %}
-            <div id="comment-div" class="dark-bg">
-                <h4><span class="post-author">{{a.author}}</span> {{format_time(a.time)}} No.{{a.id}}</h4>
-                <p>{{a.comment}}</p>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4><span class="label label-info">{{a.author}}</span> {{format_time(a.time)}} No.{{a.id}}</h4>
+                    <p>{{a.comment}}</p>
+                </div>
             </div>
 
             <br>
             <span></span>
             <br>
         {% endfor %}
-        <hr></hr>
+        <hr>
     </div>
 {% endblock %}

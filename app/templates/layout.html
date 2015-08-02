@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='style.css') }}>
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/bootstrap.min.css') }}>
+<script type="text/javascript" src={{ url_for('static', filename='js/jquery.min.js') }}></script>
+<script type="text/javascript" src={{ url_for('static', filename='js/bootstrap.min.js') }}></script>
 
 
 {% block body %}{% endblock %}
 
-<div id="footer">
-    <a href="/" id="btn">Home</a>
-    <a href="https://github.com/dapine/minichan" id="btn">Source</a>
-    <p class="fore-color">2015 minichan</p>
-</div>
+<footer class="footer">
+    <div class="container">
+        <hr>
+        <strong>Source</strong><br>
+        <a href="https://github.com/dapine/minichan">https://github.com/dapine/minichan</a>
+        <p class="text-muted">2015 minichan</p>
+    </div>
+</footer>

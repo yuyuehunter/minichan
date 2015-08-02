@@ -1,11 +1,13 @@
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/bootstrap.min.css') }}>
+
 {% macro nav_board_list() %}
     {% set categories = query_all_categories() %}
-    <div id="board-list-nav">
-        <span>[</span>
-            {% for category in categories %}
-            <a href="/{{category.url}}" class="pretty-link">{{category.url}}</a> /
-            {% endfor %}
-        <span>]</span>
-        <span>[<a href="/">Home</a>]</span>
-    </div>
+        <div class="container-fluid">
+            <ul class="nav nav-pills">
+                {% for category in categories %}
+                    <li role="presentation"><a href="/{{category.url}}" class="pretty-link">{{category.url}}</a></li>
+                {% endfor %}
+                <li role="presentation"><a href="/">Home</a></li>
+            </ul>
+        </div>
 {% endmacro %}

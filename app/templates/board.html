@@ -7,32 +7,38 @@
 
     {{nav_board_list()}}
     
-    <div id="board-title">
-        <h2>{{"/" + category['url'] + "/ - " + category['name']}}</h2>
+    <div>
+        <h2 class="text-center">{{"/" + category['url'] + "/ - " + category['name']}}</h2>
     </div>
 
-    <hr></hr>
+    <hr>
 
-    <h1 id="new-trigger">[<a href="#" onclick="show_form('new-thread'); hide_elem('new-trigger');">Start a New Thread</a>]</h1>
+    <h1 id="new-trigger" class="text-center">[<a href="#" onclick="show_form('new-thread'); hide_elem('new-trigger');">Start a New Thread</a>]</h1>
 
-    <div id="new-thread">
+    <div id="new-thread" style="display: none" class="container-fluid">
         <form method="post" action="">
             <table>
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" placeholder="Anonymous" name="name"></td>
+                    <td><input type="text" placeholder="Anonymous" name="name" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>Subject</td>
-                    <td><input type="text" name="subject"><input type="submit" value="Post"></td>
+                    <td><input type="text" name="subject" class="form-control"> 
                 </tr>
                 <tr>
                     <td>Comment</td>
-                    <td><textarea rows="4" cols="30" type="text" name="comment"></textarea></td>
+                    <td><textarea rows="4" cols="30" type="text" name="comment" class="form-control"></textarea></td>
                 </tr>
                 <tr>
                     <td>File</td>
                     <td><input type="file" name="file"></td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="btn btn-success" value="Post"></td></td>
                 </tr>
             </table>
         </form>
@@ -48,30 +54,32 @@
         }
     </script>
 
-    <hr></hr>
+    <hr>
 
     {% if (not posts) %}
-        <h1>It looks like empty...Post something</h1>
+        <h1 class="text-center">It looks like empty...Post something</h1>
     {% endif %}
 
     {% for post in posts %}
-        <div id="thread">
-            <h4><span class="post-title">{{post.title}}</span> <span class="post-author">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}} [<a href="/{{category['url']}}/thread/{{post.id}}">Reply</a>]</h4>
+        <div class="container-fluid">
+            <h4><span class="label label-success">{{post.title}}</span> <span class="label label-info">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}} [<a href="/{{category['url']}}/thread/{{post.id}}">Reply</a>]</h4>
             <p>{{post.text}}</p>
 
             {% set comment = query_comment(post.id) %}
 
             {% for c in comment %}
-                <div id="comment-div" class="dark-bg">
-                    <h4><span class="post-author">{{c.author}}</span> {{format_time(c.time)}} No.{{c.id}}</h4>
-                    <p>{{c.comment}}</p>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4><span class="label label-info">{{c.author}}</span> {{format_time(c.time)}} No.{{c.id}}</h4>
+                        <p>{{c.comment}}</p>
+                    </div>
                 </div>
 
                 <br>
                 <span></span>
                 <br>
             {% endfor %}
-            <hr></hr>
+            <hr>
         </div>
     {% endfor %}
     

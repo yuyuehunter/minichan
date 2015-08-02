@@ -4,35 +4,33 @@
 
 {% block body %}
 
-    <div>
-        <div class="box light-bg">
-            <div class="box-innie dark-blue dark-bg">
-                <h2>Boards</h2>
-            </div>
-            <div class="content">
-                <div id="board-table-div">
-                    <table id="board-table">
-                        <tr>
-                            <th id="board-table-cell">Board</th>
-                            <th id="board-table-cell">Title</th>
-                        </tr>
+    <div class="container-fluid">
+        <img src="/static/img/minichan_logo.png" class="img-responsive center-block">
 
-                        {% for category in categories %}
-                        <tr>
-                            <td id="board-table-cell">
-                                <a class="pretty-link" href={{ "/" + category.url}}>{{category.url}}</a><br>
-                            </td>
-                            <td id="board-table-cell">
-                                <p>{{category.name}}</p>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Boards</h3>
             </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Board</th>
+                        <th>Title</th>
+                    </tr>
+
+                    {% for category in categories %}
+                    <tr>
+                        <td>
+                            <a class="pretty-link" href={{ "/" + category.url}}>{{category.url}}</a><br>
+                        </td>
+                        <td>
+                            <p>{{category.name}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
-
-        <img src="/static/img/minichan_logo.png" class="center">
     </div>
         
 {% endblock %}
