@@ -63,7 +63,19 @@
     {% for post in posts %}
         <div class="container-fluid">
             <h4><span class="label label-success">{{post.title}}</span> <span class="label label-info">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}} [<a href="/{{category['url']}}/thread/{{post.id}}">Reply</a>]</h4>
-            <p><img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 100pt; height: 120pt"> {{post.text}}</p>
+
+            {% set thread_file_ext = check_extension(query_thread_file(post.id)) %}
+
+            <p>
+            {% if thread_file_ext == 'png' or thread_file_ext == 'gif' or thread_file_ext == 'gifv' or thread_file_ext == 'jpg' or thread_file_ext == 'jpeg' %}
+                <img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 200pt; height: auto">
+            {% elif thread_file_ext == 'webm' or thread_file_ext == 'mp4' %}
+                <video width="320" height="240" controls>
+                    <source src="/static/uploads/{{query_thread_file(post.id)}}">
+                </video>
+            {% endif %}
+            {{post.text}}
+            </p>
 
             {% set comment = query_comment(post.id) %}
 
@@ -71,7 +83,19 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4><span class="label label-info">{{c.author}}</span> {{format_time(c.time)}} No.{{c.id}}</h4>
-                        <p><img src="/static/uploads/{{query_comment_file(c.id)}}" style="width: 100pt; height: 120pt"> {{c.comment}}</p>
+
+                        {% set comment_file_ext = check_extension(query_comment_file(c.id)) %}
+
+                        <p>
+                        {% if comment_file_ext == 'png' or comment_file_ext == 'gif' or comment_file_ext == 'gifv' or comment_file_ext == 'jpg' or comment_file_ext == 'jpeg' %}
+                            <img src="/static/uploads/{{query_comment_file(c.id)}}" style="width: 200pt; height: auto"> 
+                        {% elif comment_file_ext == 'webm' or  comment_file_ext == 'mp4'%}
+                            <video width="320" height="240" controls>
+                                <source src="/static/uploads/{{query_comment_file(c.id)}}">
+                            </video> 
+                        {% endif %}
+                        {{c.comment}}
+                        </p>
                     </div>
                 </div>
 

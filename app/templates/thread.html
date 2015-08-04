@@ -37,12 +37,36 @@
 
     <div class="container-fluid">
         <h4><span class="label label-success">{{post.title}}</span> <span class="label label-info">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
-        <p><img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 100pt; height: 120pt"> {{post.text}}</p>
+
+        {% set thread_file_ext = check_extension(query_thread_file(post.id)) %}
+
+        <p>
+        {% if thread_file_ext == 'png' or thread_file_ext == 'gif' or thread_file_ext == 'gifv' or thread_file_ext == 'jpg' or thread_file_ext == 'jpeg' %}
+            <img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 200pt; height: auto"> 
+        {% elif thread_file_ext == 'webm' or thread_file_ext == 'mp4' %}
+            <video width="320" height="240" controls>
+                <source src="/static/uploads/{{query_thread_file(post.id)}}">
+            </video>
+        {% endif %}
+        {{post.text}}
+        </p>
         {% for a in allcomm %}
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4><span class="label label-info">{{a.author}}</span> {{format_time(a.time)}} No.{{a.id}}</h4>
-                    <p><img src="/static/uploads/{{query_comment_file(a.id)}}" style="width: 100pt; height: 120pt"> {{a.comment}}</p>
+
+                    {% set comment_file_ext = check_extension(query_comment_file(a.id)) %}
+
+                    <p>
+                    {% if comment_file_ext == 'png' or comment_file_ext == 'gif' or comment_file_ext == 'gifv' or comment_file_ext == 'jpg' or comment_file_ext == 'jpeg' %}
+                        <img src="/static/uploads/{{query_comment_file(a.id)}}" style="width: 200pt; height: auto"> 
+                    {% elif comment_file_ext == 'webm' or  comment_file_ext == 'mp4'%}
+                        <video width="320" height="240" controls>
+                            <source src="/static/uploads/{{query_comment_file(a.id)}}">
+                        </video> 
+                    {% endif %}
+                    {{a.comment}}
+                    </p>
                 </div>
             </div>
 
