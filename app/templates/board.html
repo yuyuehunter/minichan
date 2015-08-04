@@ -52,6 +52,13 @@
         function hide_elem(elem) {
             document.getElementById(elem).style.display = "none";
         }
+
+        function full_img_size(elem) {
+            switch(document.getElementById(elem).style.width) {
+                case "200pt": document.getElementById(elem).style.width = "auto"; break;
+                case "auto": document.getElementById(elem).style.width = "200pt"; break;
+            }
+        }
     </script>
 
     <hr>
@@ -68,7 +75,7 @@
 
             <p>
             {% if thread_file_ext == 'png' or thread_file_ext == 'gif' or thread_file_ext == 'gifv' or thread_file_ext == 'jpg' or thread_file_ext == 'jpeg' %}
-                <img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 200pt; height: auto">
+                <img id="thread_img" src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 200pt; height: auto" onclick="full_img_size('thread_img')">
             {% elif thread_file_ext == 'webm' or thread_file_ext == 'mp4' %}
                 <video width="320" height="240" controls>
                     <source src="/static/uploads/{{query_thread_file(post.id)}}">
@@ -88,7 +95,7 @@
 
                         <p>
                         {% if comment_file_ext == 'png' or comment_file_ext == 'gif' or comment_file_ext == 'gifv' or comment_file_ext == 'jpg' or comment_file_ext == 'jpeg' %}
-                            <img src="/static/uploads/{{query_comment_file(c.id)}}" style="width: 200pt; height: auto"> 
+                            <img id="comment_img" src="/static/uploads/{{query_comment_file(c.id)}}" style="width: 200pt; height: auto" onclick="full_img_size('comment_img')"> 
                         {% elif comment_file_ext == 'webm' or  comment_file_ext == 'mp4'%}
                             <video width="320" height="240" controls>
                                 <source src="/static/uploads/{{query_comment_file(c.id)}}">

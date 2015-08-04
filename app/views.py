@@ -70,6 +70,8 @@ def show_thread(cat, thread_id):
         'comment': ''
     }
 
+    filename = ''
+
     if request.method == 'POST':
         comment_data['name'] = request.form['name']
         comment_data['comment'] = request.form['comment']
