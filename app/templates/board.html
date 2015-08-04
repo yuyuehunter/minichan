@@ -1,11 +1,13 @@
 <title>{{"/" + category['url'] + "/ - " + category['name']}}</title>
 
 {% extends "layout.html" %}
-{% from 'macros.html' import nav_board_list %}
+{% from 'macros.html' import nav_board_list, random_img %}
 
 {% block body %}
 
     {{nav_board_list()}}
+
+    {{random_img()}}
     
     <div>
         <h2 class="text-center">{{"/" + category['url'] + "/ - " + category['name']}}</h2>

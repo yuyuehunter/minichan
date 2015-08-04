@@ -1,5 +1,6 @@
 import datetime
 import os
+import random
 from flask import render_template, request, redirect
 from app import app
 from app import db, models
@@ -14,6 +15,10 @@ def format_time(time):
     time_str = str(time.month) + '/' + str(time.day) + '/' + str(time.year) + '(' + weekdays[cur_day] + ')' + str(time.hour) + ':' + str(time.minute) + ':' + str(time.second)
 
     return time_str
+
+def random_logo():
+    images = ['claude.jpg', 'russian_kid.png', 'shia.jpg', 'tom.jpg', 'welcome_internet.jpg']
+    return images[random.randint(0, len(images)-1)]
 
 @app.route('/')
 def index():

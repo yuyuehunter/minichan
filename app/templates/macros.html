@@ -11,3 +11,9 @@
             </ul>
         </div>
 {% endmacro %}
+
+{% macro random_img() %}
+    <div class="container-fluid">
+        <img src="/static/img/{{random_logo()}}" class="img-responsive center-block">
+    </div>
+{% endmacro %}

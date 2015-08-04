@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
-{% from 'macros.html' import nav_board_list %}
+{% from 'macros.html' import nav_board_list, random_img %}
 
 {% block body %}
 
     {{nav_board_list()}}
+
+    {{random_img()}}
 
     <br>
     <div id="new-comment" style="display: table" class="container-fluid">
