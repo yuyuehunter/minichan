@@ -14,6 +14,7 @@ class Post(db.Model):
     title = db.Column(db.String(64))
     text = db.Column(db.String(10240))
     time = db.Column(db.DateTime)
+    file = db.Column(db.String(1024))
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
@@ -25,6 +26,7 @@ class Comment(db.Model):
     author = db.Column(db.String(32))
     comment = db.Column(db.String(10240))
     time = db.Column(db.DateTime)
+    file = db.Column(db.String(1024))
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 

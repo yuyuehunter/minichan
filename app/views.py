@@ -1,8 +1,11 @@
+import datetime
+import os
 from flask import render_template, request, redirect
 from app import app
 from app import db, models
 from app import queries
-import datetime
+from app import allowed_filename
+from werkzeug import secure_filename
 
 def format_time(time):
     weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -32,20 +35,25 @@ def show_category(cat):
     thread_data = {
         'name': '',
         'subject': '',
-        'comment': ''
+        'comment': '',
     }
 
     if request.method == 'POST':
         thread_data['name'] = request.form['name']
         thread_data['subject'] = request.form['subject']
         thread_data['comment'] = request.form['comment']
+        file = request.files['file']
+        if file and allowed_filename(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
         post_time = datetime.datetime.utcnow()
 
         if thread_data['name'] == '':
             thread_data['name'] = 'Anonymous'
 
     if thread_data['comment'] != '':
-        thread = models.Post(author=thread_data['name'], title=thread_data['subject'], text=thread_data['comment'], time=post_time, category_id=category['id'])
+        thread = models.Post(author=thread_data['name'], title=thread_data['subject'], text=thread_data['comment'], time=post_time, file=filename, category_id=category['id'])
         db.session.add(thread)
         db.session.commit()
         return redirect(cat, code=302)
@@ -66,12 +74,17 @@ def show_thread(cat, thread_id):
         comment_data['name'] = request.form['name']
         comment_data['comment'] = request.form['comment']
         comment_time = datetime.datetime.utcnow()
+        file = request.files['file']
+        if file and allowed_filename(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
 
         if comment_data['name'] == '':
             comment_data['name'] = 'Anonymous'
 
     if comment_data['comment'] != '':
-        comment = models.Comment(author=comment_data['name'], comment=comment_data['comment'], time=comment_time, post_id=thread_id)
+        comment = models.Comment(author=comment_data['name'], comment=comment_data['comment'], time=comment_time, file=filename, post_id=thread_id)
         db.session.add(comment)
         db.session.commit()
         return redirect(cat, code=302)

@@ -15,6 +15,18 @@ def query_category_by_name(url):
         category = {'id':'', 'name':'', 'url':''}
         return category
 
+def query_thread_file(id):
+    cur = models.Post.query.get(id)
+    file = cur.file
+
+    return file
+
+def query_comment_file(id):
+    cur = models.Comment.query.get(id)
+    file = cur.file
+
+    return file
+
 def query_post(cat_id):
     cur = models.Post.query.filter_by(category_id=cat_id)
 

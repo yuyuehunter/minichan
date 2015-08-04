@@ -16,7 +16,7 @@
     <h1 id="new-trigger" class="text-center">[<a href="#" onclick="show_form('new-thread'); hide_elem('new-trigger');">Start a New Thread</a>]</h1>
 
     <div id="new-thread" style="display: none" class="container-fluid">
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>Name</td>
@@ -63,7 +63,7 @@
     {% for post in posts %}
         <div class="container-fluid">
             <h4><span class="label label-success">{{post.title}}</span> <span class="label label-info">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}} [<a href="/{{category['url']}}/thread/{{post.id}}">Reply</a>]</h4>
-            <p>{{post.text}}</p>
+            <p><img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 100pt; height: 120pt"> {{post.text}}</p>
 
             {% set comment = query_comment(post.id) %}
 
@@ -71,7 +71,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4><span class="label label-info">{{c.author}}</span> {{format_time(c.time)}} No.{{c.id}}</h4>
-                        <p>{{c.comment}}</p>
+                        <p><img src="/static/uploads/{{query_comment_file(c.id)}}" style="width: 100pt; height: 120pt"> {{c.comment}}</p>
                     </div>
                 </div>
 

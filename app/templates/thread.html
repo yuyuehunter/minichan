@@ -7,7 +7,7 @@
 
     <br>
     <div id="new-comment" style="display: table" class="container-fluid">
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>Name</td>
@@ -37,12 +37,12 @@
 
     <div class="container-fluid">
         <h4><span class="label label-success">{{post.title}}</span> <span class="label label-info">{{post.author}}</span> {{format_time(post.time)}} No.{{post.id}}</h4>
-        <p>{{post.text}}</p>
+        <p><img src="/static/uploads/{{query_thread_file(post.id)}}" style="width: 100pt; height: 120pt"> {{post.text}}</p>
         {% for a in allcomm %}
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4><span class="label label-info">{{a.author}}</span> {{format_time(a.time)}} No.{{a.id}}</h4>
-                    <p>{{a.comment}}</p>
+                    <p><img src="/static/uploads/{{query_comment_file(a.id)}}" style="width: 100pt; height: 120pt"> {{a.comment}}</p>
                 </div>
             </div>
 
