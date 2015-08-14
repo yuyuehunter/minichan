@@ -30,7 +30,7 @@ def show_category(cat):
     posts = queries.query_post(category['id'])
 
     if category['id'] == '' or category['name'] == '' or category['url'] == '':
-        return render_template('404.html')
+        return render_template('404.html'), 404
 
     allcomm = []
 
@@ -68,8 +68,12 @@ def show_category(cat):
 @app.route('/<cat>/thread/<thread_id>', methods=['GET', 'POST'])
 def show_thread(cat, thread_id):
     post = models.Post.query.get(thread_id)
-    allcomm = queries.query_comment(post.id)
 
+    if post == None: 
+        return render_template('404.html'), 404
+
+    allcomm = queries.query_comment(post.id)
+    
     comment_data = {
         'name': '',
         'comment': ''
